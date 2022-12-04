@@ -62,10 +62,12 @@ namespace T_Rex
         static void Main(string[] args)
         { 
             Console.CursorVisible = false;
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.SetWindowSize(180, 40);
             Console.CursorLeft = Console.WindowWidth / 2 - 10;
             DrawFrame();
+            Console.SetCursorPosition(Console.WindowWidth-10, 1);
+            Console.Write("score:000");
             //line
             Console.SetCursorPosition(1, Console.WindowHeight - 5);
             for (int i = 0; i < Console.WindowWidth - 2; i++)
