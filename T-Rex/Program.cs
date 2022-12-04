@@ -5,6 +5,22 @@ namespace T_Rex
 {
     class Program
     {
+        static string[] cloudArray = { "   ≈≈≈≈                      ≈≈≈≈≈≈≈    ≈≈≈≈                              ≈≈≈≈≈      ",
+                                       "  ≈≈≈≈≈≈≈≈≈≈             ≈≈ ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈          ≈≈≈           ≈≈≈≈≈≈≈≈≈≈≈  ",
+                                       "≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈       ≈≈≈≈≈≈≈≈≈  ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈       ≈≈≈≈≈≈≈≈                    " };
+        static int backgroundY = Console.WindowHeight / 2 - 11;
+
+        static void DrawCloudColumn(int col)
+        {
+            int x = Console.WindowWidth - 2;
+            int y = backgroundY;
+            for(int i = 0; i < cloudArray.Length; i++)
+            {
+                Console.SetCursorPosition(x, y + i);
+                Console.Write(cloudArray[i][col]);
+            }
+        }
+        
         static void Jump()
         {
             Console.SetCursorPosition(2, Console.WindowHeight - 5);
@@ -28,7 +44,7 @@ namespace T_Rex
             Console.SetCursorPosition(2, Console.WindowHeight - 7);
             Console.Write("    ");
             Console.SetCursorPosition(3, Console.WindowHeight - 8);
-            Console.Write(" ");
+            Console.Write("  ");
 
             Console.SetCursorPosition(2, Console.WindowHeight - 5);
             Console.Write("/ \\");
@@ -36,19 +52,102 @@ namespace T_Rex
             Console.Write("/╥\\");
             Console.SetCursorPosition(3, Console.WindowHeight - 7);
             Console.Write("σ");
-            //Console.SetCursorPosition(3, Console.WindowHeight - 5);
-            Console.MoveBufferArea(0, 0, Console.BufferWidth, Console.BufferHeight, 20, 20);
+        }
+
+        static void MoveBackground()
+        {
+            Console.MoveBufferArea(2, backgroundY, Console.WindowWidth - 3, cloudArray.Length, 1, backgroundY);
         }
             
         static void Main(string[] args)
-        {
-            //Console.OutputEncoding = Encoding.UTF8;
+        { 
             Console.CursorVisible = false;
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.SetWindowSize(180, 40);
             Console.CursorLeft = Console.WindowWidth / 2 - 10;
-            //string odgovor = Console.ReadLine();
-            //Console.Clear();
+            DrawFrame();
+            //line
+            Console.SetCursorPosition(1, Console.WindowHeight - 5);
+            for (int i = 0; i < Console.WindowWidth - 2; i++)
+            {
+                Console.Write("_");
+            }
+            //sprite
+            int spriteStartX = 2;
+            int spriteStartY = Console.WindowHeight - 5;
+            Console.SetCursorPosition(spriteStartX, spriteStartY);
+            //Console.Write(" Ω ");
+            //Console.Write("/ \\");
+            Console.SetCursorPosition(spriteStartX, spriteStartY-1);
+            Console.Write("/╥\\");
+            Console.SetCursorPosition(spriteStartX, spriteStartY-2);
+            Console.Write(" σ  ");
+
+                
+
+            //Console.SetCursorPosition(15, Console.WindowHeight/2);
+            //Console.WriteLine("           ████████ ");
+            //Console.WriteLine("          ███▄███████");
+            //Console.WriteLine("          ███████████");
+            //Console.WriteLine("          ███████████");
+            //Console.WriteLine("          ██████ ");
+            //Console.WriteLine("          █████████ ");
+            //Console.WriteLine("█        ███████ ");
+            //Console.WriteLine("██    ████████████ ");
+            //Console.WriteLine("███   ██████████ █ ");
+            //Console.WriteLine("███████████████  ");
+            //Console.WriteLine("███████████████ ");
+            //Console.WriteLine(" █████████████ ");
+            //Console.WriteLine("  ███████████ ");
+            //Console.WriteLine("    ████████ ");
+            //Console.WriteLine("     ███  ██ ");
+            //Console.WriteLine("     ██   █");
+            //Console.WriteLine("     █    █");
+            //Console.WriteLine("     ██   ██");
+
+            // initialize cloud column
+            int col = 0;
+            
+
+            while (true)
+            {
+                //var ch = Console.ReadKey(false).Key;
+                //if (ch == ConsoleKey.UpArrow)
+                //{
+                //    Jump();
+                //}
+
+                //Clouds animation
+                //iterate cloud column
+                col++;
+                col = col % cloudArray[0].Length;
+                // draw cloud column
+                DrawCloudColumn(col);
+                // Move background
+                MoveBackground();
+
+                if (col % 2 == 0)
+                {
+                    Console.SetCursorPosition(spriteStartX, spriteStartY);
+                    Console.Write(" ┘\\ ");
+                    
+
+                }
+                else
+                {
+                    Console.SetCursorPosition(spriteStartX, spriteStartY);
+                    Console.Write(" /┘ ");
+                    
+
+                }
+                Thread.Sleep(300);
+            }
+
+        }
+
+        private static void DrawFrame()
+        {
+            //frame
             Console.CursorLeft = 0;
             Console.CursorTop = 0;
             Console.Write("╔");
@@ -71,59 +170,6 @@ namespace T_Rex
                 Console.Write("═");
             }
             Console.Write("╝");
-            Console.SetCursorPosition(1, Console.WindowHeight - 5);
-            for(int i = 0; i < Console.WindowWidth-2; i++)
-            {
-                Console.Write("_");
-            }
-            //Console.SetCursorPosition(3, Console.WindowHeight - 5);
-            //Console.WriteLine("\u2745");
-            Console.SetCursorPosition(2, Console.WindowHeight - 5);
-            Console.Write("/ \\");
-            Console.SetCursorPosition(2, Console.WindowHeight - 6);
-            Console.Write("/╥\\");
-            Console.SetCursorPosition(3, Console.WindowHeight - 7);
-            Console.Write("σ");
-            //Console.SetCursorPosition(3, Console.WindowHeight - 5);
-
-            //Console.WriteLine("           ████████ ");
-            //Console.WriteLine("          ███▄███████"); 
-            //Console.WriteLine("          ███████████"); 
-            //Console.WriteLine("          ███████████"); 
-            //Console.WriteLine("          ██████ "); 
-            //Console.WriteLine("          █████████ "); 
-            //Console.WriteLine("█        ███████ "); 
-            //Console.WriteLine("██    ████████████ "); 
-            //Console.WriteLine("███   ██████████ █ "); 
-            //Console.WriteLine("███████████████  "); 
-            //Console.WriteLine("███████████████ "); 
-            //Console.WriteLine(" █████████████ "); 
-            //Console.WriteLine("  ███████████ "); 
-            //Console.WriteLine("    ████████ "); 
-            //Console.WriteLine("     ███  ██ "); 
-            //Console.WriteLine("     ██   █"); 
-            //Console.WriteLine("     █    █"); 
-            //Console.WriteLine("     ██   ██");
-
-            Console.SetCursorPosition(Console.WindowWidth - 15, (Console.WindowHeight / 2) - 11);
-            Console.WriteLine("  ≈≈≈≈  ");
-            Console.SetCursorPosition(Console.WindowWidth - 15, (Console.WindowHeight / 2) - 10);
-            Console.WriteLine(" ≈≈≈≈≈≈≈≈≈≈");
-            Console.SetCursorPosition(Console.WindowWidth - 15, (Console.WindowHeight / 2) - 9);
-            Console.WriteLine("≈≈≈≈≈≈≈≈≈≈≈≈");
-
-            while (true)
-            {
-                var ch = Console.ReadKey(false).Key;
-                if (ch == ConsoleKey.UpArrow)
-                {
-                    Jump();
-                }
-                
-            }
-
-
-            while (true) { };
         }
     }
 }
